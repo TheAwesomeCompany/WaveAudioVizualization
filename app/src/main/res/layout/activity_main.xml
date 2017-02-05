@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:text="Hello World!" />
 
-    <com.tac.kulik.waveaudiovizualization.VoiceWaveView
+    <com.tac.kulik.waveaudiovizualization.VoiceWaveViewTV
         android:id="@+id/waveView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.tac.kulik.waveaudiovizualization.VoiceWaveView>
+        android:layout_height="match_parent"></com.tac.kulik.waveaudiovizualization.VoiceWaveViewTV>
 </RelativeLayout>

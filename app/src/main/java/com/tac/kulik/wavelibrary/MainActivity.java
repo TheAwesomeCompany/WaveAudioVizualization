@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.tac.kulik.waveaudiovizualization.VoiceWaveView;
+import com.tac.kulik.waveaudiovizualization.VoiceWaveViewTV;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,14 +23,14 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST = 1;
     private MediaRecorder mMediaRecorder;
     private Handler mHandler;
-    private VoiceWaveView mWaveView;
+    private VoiceWaveViewTV mWaveView;
     private boolean mIsRecording;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mWaveView = (VoiceWaveView) findViewById(R.id.waveView);
+        mWaveView = (VoiceWaveViewTV) findViewById(R.id.waveView);
         mHandler = new Handler(Looper.getMainLooper());
         checkPerm();
 
@@ -135,6 +136,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 
     @Override
     public void onStop() {
