@@ -11,8 +11,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.tac.kulik.waveaudiovizualization.VoiceView;
 import com.tac.kulik.waveaudiovizualization.VoiceWaveView;
 import com.tac.kulik.waveaudiovizualization.VoiceWaveViewTV;
+import com.tac.kulik.waveaudiovizualization.util.ScreenUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,12 +27,16 @@ public class MainActivity extends AppCompatActivity {
     private Handler mHandler;
     private VoiceWaveViewTV mWaveView;
     private boolean mIsRecording;
+    private VoiceView mVoiceView1;
+    private VoiceView mVoiceView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mWaveView = (VoiceWaveViewTV) findViewById(R.id.waveView);
+        mVoiceView1 = (VoiceView) findViewById(R.id.voiceCircle1);
+        mVoiceView2 = (VoiceView) findViewById(R.id.voiceCircle2);
         mHandler = new Handler(Looper.getMainLooper());
         checkPerm();
 
@@ -97,7 +103,11 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mWaveView.update(mMediaRecorder.getMaxAmplitude());
+                            int maxAmplitude = mMediaRecorder.getMaxAmplitude();
+                            mWaveView.update(maxAmplitude);
+                            float radius = (float) Math.log10(Math.max(1, maxAmplitude - 500)) * ScreenUtils.dp2px(MainActivity.this, 20);
+                            mVoiceView1.animateRadius(radius);
+                            mVoiceView2.animateRadius(radius);
                             mHandler.postDelayed(this, 50);
                         }
                     });
